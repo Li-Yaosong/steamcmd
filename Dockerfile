@@ -16,8 +16,12 @@ RUN groupadd -r steam && useradd -r -g steam steam \
     && echo steam steam/license note '' | debconf-set-selections \
     && dpkg --add-architecture i386 \
     && apt-get update -y \
-    && apt-get install -y --no-install-recommends ca-certificates steamcmd \
+    && apt-get install -y --no-install-recommends ca-certificates language-pack-en-base steamcmd \
     && ln -s /usr/games/steamcmd /usr/bin/steamcmd \
+    && locale-gen en_US.UTF-8 \
+    && update-locale LANG=en_US.UTF-8 \
+    && apt-get autoremove -y \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     /tmp/* \
     /var/tmp/* \
